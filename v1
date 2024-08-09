@@ -1,0 +1,44 @@
+def currency_converter(amount, from_currency, to_currency):
+    # Static conversion rates
+    conversion_rate = 0.013  # 1 INR = 0.013 USD
+
+    if from_currency == to_currency:
+        return amount
+
+    if from_currency == 'INR' and to_currency == 'USD':
+        return amount * conversion_rate
+    elif from_currency == 'USD' and to_currency == 'INR':
+        return amount / conversion_rate
+
+def get_currency_input(prompt):
+    while True:
+        currency = input(prompt).upper()
+        if currency in ['INR', 'USD']:
+            return currency
+        else:
+            print("Invalid currency code. Please enter INR or USD.")
+
+def get_amount_input():
+    while True:
+        try:
+            amount = float(input("Enter the amount to convert: "))
+            if amount > 0:
+                return amount
+            else:
+                print("Amount must be positive.")
+        except ValueError:
+            print("Please enter a valid number.")
+
+def play_currency_converter():
+    print("Welcome to the INR/USD Currency Converter!")
+    from_currency = get_currency_input("Enter the currency you are converting from (INR, USD): ")
+    to_currency = get_currency_input("Enter the currency you are converting to (INR, USD): ")
+    amount = get_amount_input()
+
+    converted_amount = currency_converter(amount, from_currency, to_currency)
+
+    if converted_amount is not None:
+        print(f"{amount} {from_currency} is equal to {converted_amount:.2f} {to_currency}.")
+
+
+play_currency_converter()
